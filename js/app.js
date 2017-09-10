@@ -20,9 +20,14 @@ angular.module('App', ['ngRoute', 'App.services', 'App.controllers'])
         templateUrl: 'partials/signout.html',
         controller: 'SignoutController'
       })
-      .when('/usdata/:userid', {
-        templateUrl: 'partials/userdetails.html',
-        controller: 'ParamController'
+      .when('/class/:classid', {
+        templateUrl: 'partials/class.html',
+        controller: 'ClassController'
+      })
+
+      .when('/schedule/:classid', {
+        templateUrl: 'partials/schedule.html',
+        controller: 'ScheduleController'
       })
       .when('/helpdata/:qid', {
         templateUrl: 'partials/helpdetails.html',

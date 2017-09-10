@@ -1,5 +1,6 @@
 angular.module('App.controllers', [])
     .controller('IndexController', ['$scope','$http','$route','$window','$location', function ($scope,$http,$route,$window,$location) {
+      $('ul.tabs').tabs();
       var storage = window.localStorage;
       var userid = storage.getItem("userid");
       if(userid!=null)
@@ -92,12 +93,13 @@ angular.module('App.controllers', [])
       }
 
       }])
-    .controller('ParamController', ['$scope','$routeParams','$http', function ($scope,$routeParams,$http) {
-      var storage = window.localStorage;
+    .controller('ClassController', ['$scope','$routeParams','$http', function ($scope,$routeParams,$http) {
       $scope.params = $routeParams;
-      console.log(JSON.parse(storage.getItem($scope.params.userid)));
-      $scope.contactda = JSON.parse(storage.getItem($scope.params.userid));
-      $scope.contactview = true;
+      console.log($scope.params.classid);
+    }])
+    .controller('ScheduleController', ['$scope','$routeParams','$http', function ($scope,$routeParams,$http) {
+      $scope.params = $routeParams;
+      console.log('scheduleer: '+$scope.params.classid);
     }])
     .controller('HelpSomeoneController', ['$scope','$http','$route','$window', function ($scope,$http,$route,$window) {
       var storage = window.localStorage;
