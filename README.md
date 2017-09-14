@@ -14,5 +14,6 @@ Refer link: https://ccoenraets.github.io/cordova-tutorial/index.html
 ```
 $ cordova serve
 
+Added in joel's branch
 ```
 added in andy branch
