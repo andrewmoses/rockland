@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css"  media="screen,projection"/>
+
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <style>
+      #map {
+        height: 400px;
+      }
+      </style>
+    </head>
+
+    <body>
+      <div class="container">
+        <h2 class="center-align brown-text">Volunteer page</h2>
+        <div class="divider"></div>
+        <div id="formarea">
+        <div class="row">
+          <form id="volunform" class="col s12">
+            <p>Classroom details</p>
+            <div class="row">
+
+              <div class="input-field col s6">
+                <input placeholder="Type the address here" id="pac-input" type="text" class="validate" required>
+              </div>
+              <div class="input-field col s3">
+                <input id="noofstds" type="number" class="validate" required>
+                <label for="noofstds">Number of Students</label>
+              </div>
+            </div>
+            <div id="map"></div>
+            <br>
+            <div class="row">
+              <div class="input-field col s12">
+                <input id="syllabus" type="text" class="validate" required>
+                <label for="syllabus">Syllabus</label>
+              </div>
+            </div>
+            <p>Your details</p>
+            <div class="row">
+              <div class="input-field col s12">
+                <input id="name" type="text" class="validate" required>
+                <label for="name">Name</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s6">
+                <input id="phone" type="number" class="validate" required>
+                <label for="phone">Phone</label>
+              </div>
+              <div class="input-field col s6">
+                <input id="email" type="email" class="validate" required>
+                <label for="email">Email</label>
+              </div>
+            </div>
+            <div class="row">
+              <center>
+                <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                  <i class="material-icons right">send</i>
+                </button>
+              </center>
+            </div>
+        </form>
+      </div>
+      </div>
+      </div>
+      <!--Import jQuery before materialize.js-->
+      <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+      <script type="text/javascript" src="https://npmcdn.com/parse@1.9.2/dist/parse.js"></script>
+      <script>
+      // This example adds a search box to a map, using the Google Place Autocomplete
+      // feature. People can enter geographical searches. The search box will return a
+      // pick list containing a mix of places and predicted search terms.
+
+      // This example requires the Places library. Include the libraries=places
+      // parameter when you first load the API. For example:
+      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+      Parse.initialize("Fdo6szLdxY1gndKElzfBljZoXvq1DRM84w8dwlvo", "JFvjUGB0TlqcH5moZf6TPWh8Z5l3SDpxT3i1mpk2");
+      Parse.serverURL = 'https://parseapi.back4app.com';
+      var latitude,longitude;
+      function GetLatlong()
+    {
+        var geocoder = new google.maps.Geocoder();
+        var address = document.getElementById('pac-input').value;
+
+        geocoder.geocode({ 'address': address }, function (results, status) {
+
+            if (status == google.maps.GeocoderStatus.OK) {
+                latitude = results[0].geometry.location.lat();
+                longitude = results[0].geometry.location.lng();
+            }
+        });
+      }
+
+      function initAutocomplete() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 12.924186, lng: 80.116093},
+          zoom: 13,
+          mapTypeId: 'roadmap'
+        });
+
+        // Create the search box and link it to the UI element.
+        var input = document.getElementById('pac-input');
+        var searchBox = new google.maps.places.SearchBox(input);
+        //map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+        // Bias the SearchBox results towards current map's viewport.
+        map.addListener('bounds_changed', function() {
+          searchBox.setBounds(map.getBounds());
+        });
+
+        var markers = [];
+        // Listen for the event fired when the user selects a prediction and retrieve
+        // more details for that place.
+        searchBox.addListener('places_changed', function() {
+          var places = searchBox.getPlaces();
+
+          if (places.length == 0) {
+            return;
+          }
+
+          // Clear out the old markers.
+          markers.forEach(function(marker) {
+            marker.setMap(null);
+          });
+          markers = [];
+
+          // For each place, get the icon, name and location.
+          var bounds = new google.maps.LatLngBounds();
+          places.forEach(function(place) {
+            if (!place.geometry) {
+              console.log("Returned place contains no geometry");
+              return;
+            }
+            var icon = {
+              url: place.icon,
+              size: new google.maps.Size(71, 71),
+              origin: new google.maps.Point(0, 0),
+              anchor: new google.maps.Point(17, 34),
+              scaledSize: new google.maps.Size(25, 25)
+            };
+
+            // Create a marker for each place.
+            markers.push(new google.maps.Marker({
+              map: map,
+              icon: icon,
+              title: place.name,
+              position: place.geometry.location
+            }));
+            GetLatlong();
+
+            if (place.geometry.viewport) {
+              // Only geocodes have viewport.
+              bounds.union(place.geometry.viewport);
+            } else {
+              bounds.extend(place.geometry.location);
+            }
+          });
+          map.fitBounds(bounds);
+        });
+      }
+
+
+      $( "#volunform" ).submit(function( event ) {
+        //alert( "Handler for .submit() called." );
+        event.preventDefault();
+        $("#formarea").html('<p class="center-align">We are uploading your details, please wait.</p><div class="progress"><div class="indeterminate"></div></div>');
+        console.log('inside jquery');
+        console.log(latitude);
+        console.log(longitude);
+        var volundata = Parse.Object.extend("hackocracy");
+        //var querystruct = new Parse.Query(volundata);
+        var entry = new volundata();
+        entry.set("address",$('#pac-input').val());
+        entry.set("geocode",String(latitude)+","+String(longitude));
+        entry.set("noofstuds",parseInt($('#noofstds').val()));
+        entry.set("name",$('#name').val());
+        entry.set("phone",parseInt($('#phone').val()));
+        entry.set("email",$('#email').val());
+        entry.set("syllabus",$('#syllabus').val());
+        entry.save(null, {
+          success: function(entry) {
+            console.log('susccess');
+            $("#formarea").html('<br><br><h4 class="center-align"><b>Thank you, we will reach out to you.</b></h4>');
+          },
+          error: function(error) {
+            console.log('error');
+            console.log(error);
+            $("#formarea").html('<br><br><h4 class="center-align"><b>Sorry, something went wrong.</b></h4>');
+          }
+        });
+
+      });
+
+    </script>
+      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDp2sG1dm5n-hIprr4D47dNTNBgrwdZ0b8&libraries=places&callback=initAutocomplete"
+         async defer></script>
+
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    </body>
+  </html>

@@ -1,0 +1,40 @@
+<section class="container">
+  <div class="form-divider"></div>
+
+  <div class="form-row">
+    <a href="#" id="btn-facebook" class="button circle block blue btn-facebook" ng-click="authenticateFacebook()" data-provider="facebook"> <i class="fa fa-facebook"></i> Sign up with FACEBOOK</a>
+  </div>
+  <div class="form-row">
+    <a href="javascript:void(0);" id="googlebtn" class="button circle block red btn-google" ng-click="authenticateGoogle()" data-provider="google"><i class="fa fa-google"></i> Sign up with GOOGLE</a>
+  </div>
+
+  <div class="form-divider"></div>
+  <div class="form-label-divider"><span>OR</span></div>
+  <div class="form-divider"></div>
+
+  <div class="form-row-group with-icons">
+    <div class="form-row no-padding">
+      <i class="fa fa-user"></i>
+      <input type="text" name="uname" ng-model="uname" class="form-element" placeholder="Username">
+    </div>
+    <div class="form-row no-padding">
+      <i class="fa fa-envelope"></i>
+      <input type="email" name="uemail" ng-model"uemail" class="form-element" placeholder="Email">
+    </div>
+    <div class="form-row no-padding">
+      <i class="fa fa-lock"></i>
+      <input type="password" name="upwd" ng-modele="upwd" class="form-element" placeholder="Password">
+    </div>
+  </div>
+
+  <div class="form-divider"></div>
+
+  <div class="form-row">
+    <a href="#" ng-click="signupUser($event)" class="button circle block green">Sign Up</a>
+  </div>
+
+  <div class="form-row txt-center">
+    Already have an account? <a href="#/login" data-loader="show">Login</a>
+  </div>
+
+</section>

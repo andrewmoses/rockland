@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html ng-app="App">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Umang's Journey</title>
+
+	<!-- Google font file. If you want you can change. -->
+	<link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700,900" rel="stylesheet">
+
+	<!-- Fontawesome font file css -->
+	<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+
+	<!-- Template global css file. Required in all pages -->
+	<link rel="stylesheet" type="text/css" href="css/global.style.css">
+
+	<link rel="stylesheet" type="text/css" href="css/custom.style.css">
+
+	<meta name="google-signin-client_id" content="625663423158-lgefij2epktq49q2eo3vahi4gma84nts.apps.googleusercontent.com">
+	<script>
+	  window.fbAsyncInit = function() {
+		  FB.init({
+		    appId      : '810811485762677',
+		    cookie     : true,
+		    xfbml      : true,
+		    version    : 'v2.8'
+		  });
+			FB.getLoginStatus(function(response) {
+				var fb_status = response.status;
+			});
+	  };
+
+	  // Load the SDK asynchronously
+	  (function(d, s, id) {
+	    var js, fjs = d.getElementsByTagName(s)[0];
+	    if (d.getElementById(id)) return;
+	    js = d.createElement(s); js.id = id;
+	    js.src = "js/sdks/sdk.js";
+	    fjs.parentNode.insertBefore(js, fjs);
+	  }(document, 'script', 'facebook-jssdk'));
+	</script>
+	<script src="js/sdks/platform.js" async defer></script>
+	<style>
+		[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    	display: none !important;
+		}
+	</style>
+</head>
+<body ng-cloak>
+
+	<div class="wrapper">
+		<div class="nav-menu" ng-controller="navbarcontroller">
+			<nav class="menu">
+				<!-- Template logo start -->
+				<div class="nav-header">
+					<a href="home.html">
+						<h3 style="color:#fff">Umang's Jorney</h3>
+					</a>
+				</div>
+				<!-- Template logo end -->
+				<!-- Menu navigation start -->
+				<div class="nav-container">
+					<ul class="main-menu">
+						<li>
+							<a href="#/" onclick="navMenuClose()"><i class="fa fa-home"></i> Home</a>
+						</li>
+						<li>
+							<a href="#/profile" onclick="navMenuClose()"><i class="fa fa-user"></i> Your Profile</a>
+						</li>
+						<li>
+							<a href="#/timeline" onclick="navMenuClose()"><i class="fa fa-line-chart"></i> Your Timeline</a>
+						</li>
+						<li>
+							<a href="#/contributions" onclick="navMenuClose()"><i class="fa fa-usd"></i> Your Contributions</a>
+						</li>
+						<li>
+							<a href="#/participate" onclick="navMenuClose()"><i class="fa fa-handshake-o"></i> Participate</a>
+						</li>
+						<li>
+							<a href="#/post-pics" onclick="navMenuClose()"><i class="fa fa-picture-o"></i> Post Pics</a>
+						</li>
+						<li>
+							<a href="#/donate" onclick="navMenuClose()"><i class="fa fa-money"></i> Donate</a>
+						</li>
+						<!--<li>
+							<a href="#/settings" onclick="navMenuClose()"> Settings</a>
+						</li>-->
+						<li>
+							<a href="#/send-feedback" onclick="navMenuClose()"> Send Feedback</a>
+						</li>
+						<!--<li>
+							<a href="#/help" onclick="navMenuClose()"> Help</a>
+						</li>-->
+						<li>
+							<a href="#/contact-us" onclick="navMenuClose()"> Contact Us</a>
+						</li>
+						<!--<li>
+							<a href="#/terms-service" onclick="navMenuClose()"> Terms of Service <span style="color:#fff;font-size:12px;float:right">v1.0.0</span></a>
+						</li>-->
+					</ul>
+				</div>
+			<!-- Menu navigation end -->
+			</nav>
+		</div>
+		<div class="wrapper-inline">
+			<!-- Header area start -->
+			<header> <!-- extra class no-background -->
+				<a class="go-back-link" href="javascript:history.back();" ng-if="showMenu"><i class="fa fa-arrow-left"></i></a>
+				<h1 class="page-title">{{ pageTitle }}</h1>
+				<div class="navi-menu-button" ng-if="showMenu">
+					<em></em>
+					<em></em>
+					<em></em>
+				</div>
+			</header>
+			<!-- Header area end -->
+			<!-- Page content start -->
+			<main>
+        <div id="content" class="container" ng-view>
+		    </div>
+      </main>
+			<!-- Page content end -->
+		</div>
+	</div>
+
+
+	<!--Page loader DOM Elements. Requared all pages-->
+	<div class="sweet-loader">
+		<div class="box">
+		  	<div class="circle1"></div>
+		  	<div class="circle2"></div>
+		  	<div class="circle3"></div>
+		</div>
+	</div>
+
+  <script type="text/javascript" src="lib/angular-1.2.0-rc3.js"></script>
+  <script type="text/javascript" src="lib/angular-route.js"></script>
+
+	<!-- JQuery library file. requared all pages -->
+	<script src="js/jquery-3.2.1.min.js"></script>
+
+	<!-- Template global script file. requared all pages -->
+	<script src="js/global.script.js"></script>
+
+  <!-- App -->
+  <script type="text/javascript" src="js/index.js"></script>
+  <script type="text/javascript" src="js/app.js"></script>
+  <script type="text/javascript" src="js/services.js"></script>
+  <script type="text/javascript" src="js/controllers.js"></script>
+  <script type="text/javascript">
+      app.initialize();
+  </script>
+</body>
+
+</html>
